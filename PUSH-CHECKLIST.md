@@ -1,18 +1,28 @@
 # PUSH-CHECKLIST —— 推送前逐项过
 
-> **本清单不执行推送** ✓：推送需要作者的 GitHub 账号、仓名与公开/私有决定 ✓，
-> 清单只把"推之前必须自己过一遍"的事写清楚 ✓。
+> **一键版** ✓：设好令牌后跑本仓的 `push_to_github.ps1` ✓，它会建空仓 → 推四个仓 →
+> 再从 GitHub **干净克隆复验** ✓（读者实际拿到的东西 ✓）。
 >
-> 纪律：推送是**不可逆的公开动作** ✓（删仓要另说，改历史更不用提 ✓）。
-> 每一步都留下可查的痕迹 ✓，不跳过 ✓。
+> ```powershell
+> $env:GITHUB_TOKEN = "<你的 PAT>"      # 需要 repo 权限
+> pwsh -File push_to_github.ps1 -Account JosephIvon
+> ```
+>
+> 令牌只进进程环境 ✓，不落盘 ✓、不进 git config ✓、不进仓库 ✓。
+> 下面的清单是**这份脚本做的每一件事的人工对照** ✓ —— 脚本跑一遍即可，
+> 但清单留着：脚本哪天没人维护了，口径不该跟着丢 ✓。
+
+> **本清单不代替作者拍板** ✓：推送是不可逆的公开动作 ✓
+> （删仓要另说，改历史更不用提 ✓）。每一步都留下可查的痕迹 ✓，不跳过 ✓。
 
 ## 零、作者必须先给的三件事
 
-| # | 要什么 | 为什么需要 |
+| # | 要什么 | 状态 |
 |---|---|---|
-| 1 | GitHub 账号名 | 拼仓 URL ✓ |
+| 1 | GitHub 账号名 | 默认 `JosephIvon` ✓（与仓内提交身份 `JosephIvon <fanwenbo2046@163.com>` 一致 ✓）；改账号传 `-Account` ✓ |
 | 2 | 三个仓名 | 已定：`mcopilot` / `axiscope` / `forensics-code-factory` ✓ |
 | 3 | 公开 / 私有 | 已定：**全部公开** ✓（作者裁定 2026-10-23 ✓） |
+| 4 | 一个可用的 PAT | **待给** ✓：2026-10-23 试过账号密码 `Gh@112114` → API 三种鉴权头全 401 ✗（GitHub 的 API 与 git 已不接受账号密码 ✓）→ 需在 GitHub 设置里生成 **Personal Access Token**（勾 `repo` ✓）✓ |
 
 > 仓名有重名风险时建议加前缀（如 `forensics-mcopilot`）✓——
 > `mcopilot` / `axiscope` / `trae_factory` 都是常见名 ✓。
@@ -31,6 +41,22 @@
 | 秘密 | `python <书仓>/tools/probe_publish_readiness.py` | 疑似秘密 **0** ✓ | |
 | 账实相符 | `python <书仓>/tools/check_doc_refs_heads.py` | 真断链 **0** ✓ | 按 HEAD 核 ✓ |
 | 工作树 | `git status --porcelain` | 三仓均 **0 件** ✓ | 推之前必须干净 ✓ |
+
+### 一之二：**干净克隆**复验（2026-10-23 新增 ✓ —— 这才是"读者拿到的东西" ✓）
+
+> 本机工作树绿 ≠ 公开后能用 ✓。上一轮 push 前实测发现**四个真实发布缺陷** ✓：
+> `.gitignore` 的 `*.log` 把测试夹具扫掉 ✗、87 个测试因原始数据不在位而红 ✗、
+> G5 与 G7 的缺件口径不一致 ✗、负向门禁 N1 在缺件时**假绿** ✗。
+> 所以下面这组检查是**发布前的硬门槛** ✓（全部由本地路径克隆跑出 ✓ = CI 会跑的 ✓）：
+
+| 仓 | 干净克隆实测 | 处置 |
+|---|---|---|
+| mcopilot | pytest **382 passed / 5 skipped** ✓；门禁 **10/12（SKIP 2，失败 0）** ✓；负向门禁 **7/7 PASS + SKIP 1** ✓ | 缺件记 SKIP 且**写明「当前不可自动复核」** ✓；N1 基线不可核时记 SKIP 而非假绿 ✓ |
+| axiscope | pytest **294 passed / 110 skipped** ✓；`probe_pii` 退出码 **0** ✓ | 新增 `tests/conftest.py` ✓：按各文件 `REQUIRES_DATA` **显式声明**执行 loud SKIP ✓ |
+| trae_factory | `node test_gen.js all` 退出码 **0** ✓；`concat.js` 后单文件 **无差异** ✓；产物绝对路径 **0** ✓ | 无 mcopilot 兄弟目录时**降级并在产物里写明** ✓（`JointEval.md` 的「⚠ 共享评测集缺失」✓） |
+
+> 跳过 ≠ 通过 ✓。每条 SKIP 都带原因 ✓，CI 日志里能一眼看出
+> **有多少断言在缺件时没跑** ✓ —— 那正是"当前不可自动复核"的范围 ✓。
 
 **入库体积**（GitHub 限 100 MB/文件 ✓）✓：
 

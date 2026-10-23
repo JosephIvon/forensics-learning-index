@@ -11,8 +11,8 @@
 | # | 要什么 | 为什么需要 |
 |---|---|---|
 | 1 | GitHub 账号名 | 拼仓 URL ✓ |
-| 2 | 三个仓名（可与本地同名） | 拼仓 URL ✓ |
-| 3 | 公开 / 私有 | 决定可见性与 CI 触发方式 ✓ |
+| 2 | 三个仓名 | 已定：`mcopilot` / `axiscope` / `forensics-code-factory` ✓ |
+| 3 | 公开 / 私有 | 已定：**全部公开** ✓（作者裁定 2026-10-23 ✓） |
 
 > 仓名有重名风险时建议加前缀（如 `forensics-mcopilot`）✓——
 > `mcopilot` / `axiscope` / `trae_factory` 都是常见名 ✓。
@@ -53,17 +53,17 @@
 # ── 1) mcopilot
 cd /path/to/mcopilot
 git remote add origin https://github.com/<账号>/<仓名1>.git
-git push -u origin master            # 本仓分支名是 master
+git push -u origin main              # 分支已统一为 main
 
 # ── 2) axiscope
 cd /path/to/axiscope
 git remote add origin https://github.com/<账号>/<仓名2>.git
-git push -u origin main              # 本仓分支名是 main（与 mcopilot 不同！）
+git push -u origin main              # 本仓本来就是 main
 
 # ── 3) trae_factory
 cd /path/to/trae_factory
 git remote add origin https://github.com/<账号>/<仓名3>.git
-git push -u origin master
+git push -u origin main
 
 # ── 4) 索引仓（本仓）
 cd /path/to/forensics-learning-index
@@ -73,10 +73,9 @@ git remote add origin https://github.com/<账号>/<索引仓名>.git
 git push -u origin main
 ```
 
-**分支名不一致**（mcopilot/trae = `master` ✓，axiscope = `main` ✓）——
-GitHub 新建仓默认分支是 `main` ✓，推送 `master` 会**多出一个分支** ✓。
-两个选择都行 ✓，但**要在建仓时就定** ✓（推荐：推之前先
-`git branch -m master main` 统一 ✓，或建仓时选 master ✓）。
+**分支名已统一** ✓：三个工程仓都已在本地改为 `main` ✓
+（mcopilot 与 trae_factory 由 `master` 改名 ✓，axiscope 本就是 `main` ✓）。
+**改名不改历史、不改任何坐标** ✓——坐标锚的是 commit，不是分支名 ✓。
 
 ## 三、推完之后的验证（不是"推了就算"）
 
@@ -89,7 +88,7 @@ GitHub 新建仓默认分支是 `main` ✓，推送 `master` 会**多出一个�
 - [ ] 随机挑 2 个**中文名文件**点开，确认内容没乱码 ✓
 - [ ] 在**干净克隆**里跑一遍主命令 ✓：
       ```bash
-      git clone https://github.com/<账号>/<仓名1>.git && cd <仓名1> && python -m pytest -q
+      git clone https://github.com/<账号>/mcopilot.git && cd mcopilot && python -m pytest -q
       ```
       —— 干净克隆与本机工作树的差异正是"公开后读者实际拿到的东西" ✓
 - [ ] 索引仓的 `<账号>` 占位符**已全部替换** ✓

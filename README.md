@@ -8,14 +8,16 @@
 
 ## 一、三个仓
 
-| 仓 | 是什么 | 体量（入库） | 状态 |
+| 仓（GitHub 上的公开名） | 是什么 | 体量（入库） | 状态 |
 |---|---|---|---|
 | **[mcopilot](https://github.com/<账号>/mcopilot)** | 协议域的**真值钉扎与门禁**：协议知识库（Modbus / S7 / FOCAS / SLMP）、帧级黄金测试、契约测试、故障注入农场、接入闭环 | 199 件 / 13.5 MB | 门禁 G1–G12 全绿 ✓，pytest 387 passed ✓ |
-| **[trae_factory](https://github.com/<账号>/trae_factory)** | 上位机**代码工厂**：浏览器里填轴数与工艺，生成带真值链的 C# 运动控制工程 | 190 件 / 2.2 MB | 生成器可跑 ✓，单文件交付物与 `gen/` 同源 ✓ |
+| **[forensics-code-factory](https://github.com/<账号>/forensics-code-factory)** | 上位机**代码工厂**：浏览器里填轴数与工艺，生成带真值链的 C# 运动控制工程 | 190 件 / 2.2 MB | 生成器可跑 ✓，单文件交付物与 `gen/` 同源 ✓ |
 | **[axiscope](https://github.com/<账号>/axiscope)** | **数据契约与知识库**：C1–C7 数据契约、KB0–KB8 知识库、数据溯源存证、评测纪律 | 185 件 / 25.5 MB | pytest 403 passed ✓，脱敏自检通过 ✓ |
 
-> 仓名与链接待作者定稿（GitHub 账号与仓名尚未提供 ✓）——
-> 本索引里的 `<账号>` 是占位符，推送前必须替换 ✓。
+> **可见性**：三个工程仓**全部公开** ✓（作者裁定 2026-10-23 ✓）。
+> **仓名**：`mcopilot` / `axiscope` / `forensics-code-factory` / 本索引仓 `forensics-learning-index` ✓；
+> **分支**：三个工程仓统一 `main` ✓（mcopilot 与 trae_factory 由 `master` 改名 ✓）。
+> **`<账号>` 仍是占位符** ✓——GitHub 账号尚未提供，推送前必须替换 ✓。
 
 ## 二、它们怎么接（接缝图）
 
@@ -90,7 +92,7 @@
 |---|---|---|
 | 卷一《协议域卷》 | mcopilot | `b53ac62` |
 | 册一《审计与合规卷》 | axiscope | `b95ffb2` |
-| 册二《代码工厂与真值链卷》 | trae_factory | `954c210` |
+| 册二《代码工厂与真值链卷》 | trae_factory（公开名 `forensics-code-factory`） | `954c210` |
 
 > 锚点之后各仓都有新提交 ✓（公开前硬化等 ✓），**锚点本身未动** ✓——
 > 动锚点要重验全书 697 个坐标 ✓，收益远小于代价 ✓。
@@ -111,8 +113,8 @@ git clone https://github.com/<账号>/mcopilot.git
 cd mcopilot && pip install -e . && python -m pytest -q      # 387 passed
 
 # 2) 取代码工厂（可选：让它读上面的 mcopilot 知识库）
-git clone https://github.com/<账号>/trae_factory.git
-cd trae_factory && node test_gen.js all                      # 退出码 0
+git clone https://github.com/<账号>/forensics-code-factory.git
+cd forensics-code-factory && node test_gen.js all                      # 退出码 0
 
 # 3) 取数据契约与知识库
 git clone https://github.com/<账号>/axiscope.git

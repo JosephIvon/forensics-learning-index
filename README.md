@@ -10,14 +10,14 @@
 
 | 仓（GitHub 上的公开名） | 是什么 | 体量（入库） | 状态 |
 |---|---|---|---|
-| **[mcopilot](https://github.com/<账号>/mcopilot)** | 协议域的**真值钉扎与门禁**：协议知识库（Modbus / S7 / FOCAS / SLMP）、帧级黄金测试、契约测试、故障注入农场、接入闭环 | 199 件 / 13.5 MB | 门禁 G1–G12 全绿 ✓，pytest 387 passed ✓ |
-| **[forensics-code-factory](https://github.com/<账号>/forensics-code-factory)** | 上位机**代码工厂**：浏览器里填轴数与工艺，生成带真值链的 C# 运动控制工程 | 190 件 / 2.2 MB | 生成器可跑 ✓，单文件交付物与 `gen/` 同源 ✓ |
-| **[axiscope](https://github.com/<账号>/axiscope)** | **数据契约与知识库**：C1–C7 数据契约、KB0–KB8 知识库、数据溯源存证、评测纪律 | 185 件 / 25.5 MB | pytest 403 passed ✓，脱敏自检通过 ✓ |
+| **[mcopilot](https://github.com/JosephIvon/mcopilot)** | 协议域的**真值钉扎与门禁**：协议知识库（Modbus / S7 / FOCAS / SLMP）、帧级黄金测试、契约测试、故障注入农场、接入闭环 | 199 件 / 13.5 MB | 门禁 G1–G12 全绿 ✓，pytest 387 passed ✓ |
+| **[forensics-code-factory](https://github.com/JosephIvon/forensics-code-factory)** | 上位机**代码工厂**：浏览器里填轴数与工艺，生成带真值链的 C# 运动控制工程 | 190 件 / 2.2 MB | 生成器可跑 ✓，单文件交付物与 `gen/` 同源 ✓ |
+| **[axiscope](https://github.com/JosephIvon/axiscope)** | **数据契约与知识库**：C1–C7 数据契约、KB0–KB8 知识库、数据溯源存证、评测纪律 | 185 件 / 25.5 MB | pytest 403 passed ✓，脱敏自检通过 ✓ |
 
 > **可见性**：三个工程仓**全部公开** ✓（作者裁定 2026-10-23 ✓）。
 > **仓名**：`mcopilot` / `axiscope` / `forensics-code-factory` / 本索引仓 `forensics-learning-index` ✓；
 > **分支**：三个工程仓统一 `main` ✓（mcopilot 与 trae_factory 由 `master` 改名 ✓）。
-> **`<账号>` 仍是占位符** ✓——GitHub 账号尚未提供，推送前必须替换 ✓。
+> **`JosephIvon` 仍是占位符** ✓——GitHub 账号尚未提供，推送前必须替换 ✓。
 
 ## 二、它们怎么接（接缝图）
 
@@ -109,15 +109,15 @@
 
 ```bash
 # 1) 取协议真值与门禁
-git clone https://github.com/<账号>/mcopilot.git
+git clone https://github.com/JosephIvon/mcopilot.git
 cd mcopilot && pip install -e . && python -m pytest -q      # 387 passed
 
 # 2) 取代码工厂（可选：让它读上面的 mcopilot 知识库）
-git clone https://github.com/<账号>/forensics-code-factory.git
+git clone https://github.com/JosephIvon/forensics-code-factory.git
 cd forensics-code-factory && node test_gen.js all                      # 退出码 0
 
 # 3) 取数据契约与知识库
-git clone https://github.com/<账号>/axiscope.git
+git clone https://github.com/JosephIvon/axiscope.git
 cd axiscope && pip install -e . && python -m pytest -q       # 403 passed
 ```
 

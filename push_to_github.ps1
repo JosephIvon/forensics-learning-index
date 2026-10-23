@@ -86,7 +86,10 @@ if (Test-Path $idxReadme) {
 foreach ($r in $repos) {
   $path = Join-Path $ws $r.Dir
   Push-Location $path
-  $url = "https://$Account@github.com/$($r.Name).git"
+  # URL 里的账号段是**路径的一部分**（owner），不能省：
+  # 写成 github.com/<仓名>.git 会指向一个不存在的仓，报 "Not Found"。
+  # 用户名放在 userinfo 段只影响鉴权身份，不影响路径。
+  $url = "https://$Account@github.com/$Account/$($r.Name).git"
   if ((git remote) -contains "origin") { git remote set-url origin $url | Out-Null }
   else { git remote add origin $url | Out-Null }
   Write-Host "  → 推送 $($r.Dir) → $url" -ForegroundColor Cyan
